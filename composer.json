@@ -1,0 +1,22 @@
+{
+    "name": "blackhilloldmonster/wechat_mini_programs_sdk_for_php",
+    "description": "Wechat Mini Programs SDK for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "blackhilloldmonster",
+            "email": "cmhtm@qq.com"
+        }
+    ],
+
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev" : {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {"BHOM\\WechatMP\\":"src/"}
+    }
+}
