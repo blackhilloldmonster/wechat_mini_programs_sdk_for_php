@@ -16,15 +16,14 @@
  * MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * Created by PhpStorm.
  * User: php_developer_01 wuweilong
- * Date: 2018/03/19星期一
- * Time: 14:57
+ * Date: 2018/03/20星期二
+ * Time: 14:20
  */
 
 namespace BHOM\WechatMP;
 
-use BHOM\WechatMP\Http\HttpHelper;
 
-class Token
+class MakeQR
 {
 
 }
