@@ -45,6 +45,9 @@ class Login extends BaseConf
         if(isset($data_arr["errcode"])){
             return parent::return_format(500,$data_arr["errmsg"],$data_arr);
         }
+        if(empty($data_arr)){
+            return parent::return_format(500,"登陆失败",[]);
+        }
         return parent::return_format(200,"登陆成功",$data_arr);
     }
 }

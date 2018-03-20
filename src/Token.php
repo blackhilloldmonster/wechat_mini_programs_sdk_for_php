@@ -33,7 +33,7 @@ class Token extends BaseConf
      * @param $grant_type
      * @return array
      */
-    public static function get_token($appid,$appsecret,$grant_type){
+    public static function get_token($appid,$appsecret,$grant_type="client_credential"){
         $url = parent::config("token.get_token");
         $params = [
             "grant_type" =>$grant_type,
@@ -44,6 +44,9 @@ class Token extends BaseConf
         $data_arr = json_decode($data,true);
         if(isset($data_arr["errcode"])){
             return parent::return_format(500,$data_arr["errmsg"],$data_arr);
+        }
+        if(empty($data_arr)){
+            return parent::return_format(500,"生成失败",[]);
         }
         return parent::return_format(200,"成功",$data_arr);
     }
