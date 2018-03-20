@@ -24,10 +24,10 @@ namespace BHOM\WechatMP;
 
 class BaseConf
 {
-    protected static $url;//本地配置的地址配置
+    protected $url;//本地配置的地址配置
     public function __construct(){
         //加载
-        self::$url = include("Config/wechat.php");
+        $this->url = include("Config/wechat.php");
     }
 
     /**
@@ -46,7 +46,8 @@ class BaseConf
      * @return mixed
      */
     public static function config($string){
-        $url = self::$url;
+        $url_config = new self();
+        $url = $url_config->url;
         $arr = explode(".",$string);
         foreach ($arr as $k=>$v){
             $url = $url["{$v}"];
@@ -75,7 +76,7 @@ class BaseConf
      * @param array $data
      * @return array
      */
-    public static function return_format($code,$message,array $data){
+    public static function return_format($code,$message,array $data = []){
         return ["code"=>$code,"message"=>$message,"data"=>$data];
     }
 }

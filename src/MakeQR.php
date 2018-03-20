@@ -15,7 +15,7 @@
  * MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * Created by PhpStorm.
- * User: php_developer_01 wuweilong
+ * User: Shuke
  * Date: 2018/03/20星期二
  * Time: 14:20
  */
@@ -44,10 +44,16 @@ class MakeQR extends BaseConf
             "auto_color" => (boolean)$auto_color,
             "line_color" => $line_color
         ];
+        if(empty($line_color)){
+            unset($params["line_color"]);
+        }
         $data = HttpHelper::inter_curl($url,json_encode($params,JSON_UNESCAPED_UNICODE),1,1);
         $data_arr = json_decode($data,true);
         if(isset($data_arr["errcode"])){
             return parent::return_format(500,$data_arr["errmsg"],$data_arr);
+        }
+        if(empty($data)){
+            return parent::return_format(500,"生成失败",[]);
         }
         return parent::return_format(200,"生成完成",["pic_text"=>$data]);
     }
@@ -72,10 +78,16 @@ class MakeQR extends BaseConf
             "auto_color" => (boolean)$auto_color,
             "line_color" => $line_color
         ];
+        if(empty($line_color)){
+            unset($params["line_color"]);
+        }
         $data = HttpHelper::inter_curl($url,json_encode($params,JSON_UNESCAPED_UNICODE),1,1);
         $data_arr = json_decode($data,true);
         if(isset($data_arr["errcode"])){
             return parent::return_format(500,$data_arr["errmsg"],$data_arr);
+        }
+        if(empty($data)){
+            return parent::return_format(500,"生成失败",[]);
         }
         return parent::return_format(200,"生成完成",["pic_text"=>$data]);
     }
@@ -98,6 +110,9 @@ class MakeQR extends BaseConf
         $data_arr = json_decode($data,true);
         if(isset($data_arr["errcode"])){
             return parent::return_format(500,$data_arr["errmsg"],$data_arr);
+        }
+        if(empty($data)){
+            return parent::return_format(500,"生成失败",[]);
         }
         return parent::return_format(200,"生成完成",["pic_text"=>$data]);
     }
