@@ -22,8 +22,31 @@
 
 namespace BHOM\WechatMP;
 
-
-class personas
+use BHOM\WechatMP\Http\HttpHelper;
+class personas extends BaseConf
 {
-
+    /**
+     * 用户画像
+     * @param $token
+     * @param int $offset
+     * @param int $count
+     * @return array
+     */
+    public static function user_portrait($token,$begin_date,$end_date){
+        $url = parent::config("personas.getweanalysisappiduserportrait");
+        $url = parent::splice($url,$token);
+        $params = [
+            "begin_date" => $begin_date,
+            "end_date" => $end_date
+        ];
+        $data = HttpHelper::inter_curl($url,json_encode($params,JSON_UNESCAPED_UNICODE),1,1);
+        $data_arr = json_decode($data,true);
+        if(isset($data_arr["errcode"])){
+            if($data_arr["errcode"] == 0){
+                return parent::return_format(200,"列表获取成功",$data_arr);
+            }
+            return parent::return_format(500,$data_arr["errmsg"],$data_arr);
+        }
+        return parent::return_format(500,"调用获取失败",$data_arr);
+    }
 }

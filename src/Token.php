@@ -15,7 +15,7 @@
  * MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * Created by PhpStorm.
- * User: php_developer_01 wuweilong
+ * User: Shuke
  * Date: 2018/03/19星期一
  * Time: 14:57
  */
@@ -23,17 +23,28 @@
 namespace BHOM\WechatMP;
 
 use BHOM\WechatMP\Http\HttpHelper;
-use BHOM\WechatMP\BaseConf;
 
-class Token
+class Token extends BaseConf
 {
-
-    function test(){
-        $status = HttpHelper::inter_curl("https://baidu.com","",0,1);
-        return json_encode($status,JSON_UNESCAPED_UNICODE);
-        //return json_encode($this->config,JSON_UNESCAPED_UNICODE)."\n";
+    /**
+     * 获取token
+     * @param $appid
+     * @param $appsecret
+     * @param $grant_type
+     * @return array
+     */
+    public static function get_token($appid,$appsecret,$grant_type){
+        $url = parent::config("token.get_token");
+        $params = [
+            "grant_type" =>$grant_type,
+            "appid" => $appid,
+            "secret" => $appsecret
+        ];
+        $data = HttpHelper::inter_curl($url,$params,0,1);
+        $data_arr = json_decode($data,true);
+        if(isset($data_arr["errcode"])){
+            return parent::return_format(500,$data_arr["errmsg"],$data_arr);
+        }
+        return parent::return_format(200,"成功",$data_arr);
     }
 }
-
-$token = new Token();
-echo $token->test()."\n";
