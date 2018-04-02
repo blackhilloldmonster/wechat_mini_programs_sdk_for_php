@@ -156,11 +156,11 @@ class TemplateMsg extends BaseConf
      * @param string $emphasis_keyword
      * @return array
      */
-    public static function send_mytemplat($token,$template_id,$form_id,array $data,$page="",$color="",$emphasis_keyword=""){
+    public static function send_mytemplat($token,$touser,$template_id,$form_id,array $data,$page="",$color="",$emphasis_keyword=""){
         $url = parent::config("template_msg.send_template");
         $url = parent::splice($url,$token);
         $params = [
-            "touser" => $token,
+            "touser" => $touser,
             "template_id" => $template_id,
             "page" => $page,
             "form_id" => $form_id,
